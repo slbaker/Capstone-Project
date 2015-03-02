@@ -1,10 +1,55 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using BookDomain;
 
 namespace BookDomainTest
 {
+    public class MockBookRepo : IBookRepository
+    {
+        public Dictionary<int, Book> Books = new Dictionary<int, Book>();
+
+        public MockBookRepo()
+        {
+            Books.Add(1, new Book() { ID = 1, YearPublished = 1400, Title = "A", AuthorID = 1, ISBN = "1", Subject = "Foo" });
+            Books.Add(2, new Book() { ID = 2, YearPublished = 1400, Title = "B", AuthorID = 1, ISBN = "2", Subject = "Bar" });
+        }
+
+        public System.Collections.Generic.List<Book> GetBooks()
+        {
+            List<Book> ret = new List<Book>();
+            foreach (var b in Books.Values)
+                ret.Add(b);
+            return ret;
+        }
+
+        public Book GetBookByID(int ID)
+        {
+            return null;
+        }
+
+        public System.Collections.Generic.List<Book> GetBooksByAuthor(string authorName)
+        {
+            return new System.Collections.Generic.List<Book>();
+        }
+
+        public bool AddBook(Book book)
+        {
+            return false;
+        }
+
+        public bool UpdateBook(Book book)
+        {
+            return false;
+        }
+
+        public bool DeleteBook(Book book)
+        {
+            return false;
+        }
+    }
+
     [TestClass]
     public class BookTests
     {
@@ -49,6 +94,15 @@ namespace BookDomainTest
             {
                 Assert.IsTrue(true);
             }
+        }
+        [TestMethod]
+        public void CanGetBooksFromRepo()
+        {
+            MockBookRepo mockRepo = new MockBookRepo();
+
+            List<Book> books = mockRepo.GetBooks();
+            Assert.IsNotNull(books);
+            Assert.IsTrue(books.Count > 0);
         }
     }
 }
