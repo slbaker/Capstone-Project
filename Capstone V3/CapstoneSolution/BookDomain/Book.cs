@@ -13,6 +13,20 @@ namespace BookDomain
         public string Title { get; set; }
         public int AuthorID { get; set; }
         public string Subject { get; set; }
-        public int YearPublished { get; set; }
+        public int YearPublished { 
+            get
+            {
+                return m_YearPublished;
+            }
+            set
+            {
+                if (value < 1400 || value > DateTime.Now.Year)
+                    throw new Exception("Cannot be before 1400 or after today");
+
+                m_YearPublished = value;
+            }
+        }
+
+        private int m_YearPublished;
     }
 }
