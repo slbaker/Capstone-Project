@@ -1,0 +1,16 @@
+﻿<Window x:Class="WpfApplication2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="359.519" Width="810.107">
+    <Grid>
+        <Label Content="Patron Book Look Up" HorizontalAlignment="Left" Margin="191,29,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.909,0.249"/>
+        <Label Content="Search Criteria: " HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.324,0.494"/>
+        <TextBox x:Name="SearchCriteriaTextBox" HorizontalAlignment="Left" Height="23" Margin="107,56,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="470"/>
+        <Button Content="Search" HorizontalAlignment="Left" Margin="27,276,0,0" VerticalAlignment="Top" Width="132" Click="Button_Click"/>
+        <Button Content="Clear Search" HorizontalAlignment="Left" Margin="191,276,0,0" VerticalAlignment="Top" Width="132"/>
+        <Button Content="Exit" HorizontalAlignment="Left" Margin="364,276,0,0" VerticalAlignment="Top" Width="132"/>
+        <TextBlock HorizontalAlignment="Left" Margin="248,10,0,0" TextWrapping="Wrap" Text="Libraian LogIn" VerticalAlignment="Top" Cursor="Hand"/>
+        <DataGrid x:Name="PatronDataGrid" HorizontalAlignment="Left" Margin="27,97,0,0" VerticalAlignment="Top" Height="162" Width="712" SelectionChanged="DataGrid_SelectionChanged"/>
+
+    </Grid>
+</Window>

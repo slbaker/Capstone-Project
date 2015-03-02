@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="LibraryInformation2" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=SHANNON-LAPTOP\SQLEXPRESS;Initial Catalog=LibraryInformation2;Integrated Security=True" SettingsObjectName="WpfApplication2.Properties.Settings" SettingsPropertyName="LibraryInformation2ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Authors" Member="Authors">
+    <Type Name="Author">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Bio" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="Author_Book" Member="Books" ThisKey="ID" OtherKey="AuthorID" Type="Book" />
+      <Association Name="People_Author" Member="People" ThisKey="ID" OtherKey="PersonID" Type="People" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Books" Member="Books">
+    <Type Name="Book">
+      <Column Name="BookID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ISBN" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="AuthorID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NumPages" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Subject" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Publisher" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="YearPublished" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Language" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="NumberOfCopies" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Book_CheckOutLog" Member="CheckOutLogs" ThisKey="BookID" OtherKey="BookID" Type="CheckOutLog" />
+      <Association Name="Author_Book" Member="Author" ThisKey="AuthorID" OtherKey="ID" Type="Author" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Cardholders" Member="Cardholders">
+    <Type Name="Cardholder">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Phone" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="LibraryCardID" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Association Name="Cardholder_CheckOutLog" Member="CheckOutLogs" ThisKey="ID" OtherKey="CardholderID" Type="CheckOutLog" />
+      <Association Name="People_Cardholder" Member="People" ThisKey="ID" OtherKey="PersonID" Type="People" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CheckOutLog" Member="CheckOutLogs">
+    <Type Name="CheckOutLog">
+      <Column Name="CheckOutLogID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CardholderID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BookID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CheckOutDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CheckInDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Book_CheckOutLog" Member="Book" ThisKey="BookID" OtherKey="BookID" Type="Book" IsForeignKey="true" />
+      <Association Name="Cardholder_CheckOutLog" Member="Cardholder" ThisKey="CardholderID" OtherKey="ID" Type="Cardholder" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Librarians" Member="Librarians">
+    <Type Name="Librarian">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Phone" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Association Name="People_Librarian" Member="People" ThisKey="ID" OtherKey="PersonID" Type="People" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.People" Member="Peoples">
+    <Type Name="People">
+      <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Association Name="People_Author" Member="Author" ThisKey="PersonID" OtherKey="ID" Type="Author" Cardinality="One" />
+      <Association Name="People_Cardholder" Member="Cardholder" ThisKey="PersonID" OtherKey="ID" Type="Cardholder" Cardinality="One" />
+      <Association Name="People_Librarian" Member="Librarian" ThisKey="PersonID" OtherKey="ID" Type="Librarian" Cardinality="One" />
+    </Type>
+  </Table>
+</Database>
