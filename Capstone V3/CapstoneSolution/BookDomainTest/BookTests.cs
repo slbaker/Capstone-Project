@@ -8,6 +8,7 @@ namespace BookDomainTest
 {
     public class MockBookRepo : IBookRepository
     {
+        //Key value pair - int is linked to the value Book
         public Dictionary<int, Book> Books = new Dictionary<int, Book>();
 
         public MockBookRepo()
@@ -18,14 +19,22 @@ namespace BookDomainTest
 
         public System.Collections.Generic.List<Book> GetBooks()
         {
+            //creating a List of Books called ret
             List<Book> ret = new List<Book>();
             foreach (var b in Books.Values)
                 ret.Add(b);
             return ret;
+
         }
 
         public Book GetBookByID(int ID)
         {
+            
+            if (Books.ContainsKey(ID))
+            {
+                Book value = Books [ID];
+                return value;
+            }
             return null;
         }
 
